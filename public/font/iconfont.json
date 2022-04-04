@@ -1,0 +1,128 @@
+{
+  "id": "3277473",
+  "name": "vue2-elm",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12827550",
+      "name": "电  话",
+      "font_class": "dianhua",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "17967643",
+      "name": "客服",
+      "font_class": "kefu1",
+      "unicode": "eeb4",
+      "unicode_decimal": 61108
+    },
+    {
+      "icon_id": "1829916",
+      "name": "头像",
+      "font_class": "touxiang1",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "4507549",
+      "name": "头像",
+      "font_class": "touxiang11",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "19869573",
+      "name": "爱餐图标_用户-头像",
+      "font_class": "aicantubiao_yonghu-touxiang",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "26331253",
+      "name": "用户头像",
+      "font_class": "yonghutouxiang-copy",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "13543865",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "7015508",
+      "name": "服务中心",
+      "font_class": "fuwuzhongxin",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "8455422",
+      "name": "购物袋",
+      "font_class": "gouwudai1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "17886392",
+      "name": "饿了么",
+      "font_class": "eliaomo",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "23570496",
+      "name": "购物袋",
+      "font_class": "gouwudai",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "24369996",
+      "name": "皇冠",
+      "font_class": "huangguan",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "18857431",
+      "name": "头像",
+      "font_class": "touxiang",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "1049950",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "1167155",
+      "name": "订单",
+      "font_class": "dingdan",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "11891864",
+      "name": "compass",
+      "font_class": "compass",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "18166598",
+      "name": "饿了么",
+      "font_class": "elment",
+      "unicode": "e8ca",
+      "unicode_decimal": 59594
+    }
+  ]
+}
