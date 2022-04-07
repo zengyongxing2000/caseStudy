@@ -31,3 +31,12 @@ export function getYzm(params){ // 获取食品列表
       params: {...params}
   })
 }
+
+export function searchSite(params){ // 搜索地址
+  return request({
+      url: 'v1/pois',
+      method: 'get',
+      params: {...params}
+  })
+}
+

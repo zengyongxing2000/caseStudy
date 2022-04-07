@@ -139,6 +139,14 @@ const routes = [
     meta: {
       TabbarShow: false,
     }
+  },
+  {
+    path: '/food',
+    name: 'food',
+    component: () => import('../views/food'),
+    meta: {
+      TabbarShow: false,
+    }
   }
 
 ]

@@ -6,28 +6,60 @@
       </template>
     </Header>
     <div class="searchForm">
-      <div class="searchForm_input">
-        <input type="text" autocomplete="on" placeholder="输入学校, 商务楼, 地址">
-      </div>
-      <div class="searchForm_button">
-        <button>提交</button>
-      </div>
+      <form action="" method="get">
+        <div class="searchForm_input">
+          <input type="text" autocomplete="on" v-model="address" placeholder="输入学校, 商务楼, 地址" required>
+        </div>
+        <div class="searchForm_button">
+          <button type="submit" @click.prevent="searchSites()">提交</button>
+        </div>
+      </form>
     </div>
-    <h4 class="search_title">搜索历史</h4>
+    <div class="SearchHistory" v-if=!sites>
+      <h4 class="search_title">搜索历史</h4>
+    </div>
+    <div class="addressContainer" v-for="(item,index) in sites" :key="index" @click="nextPage(item.name)">
+      <h5>{{item.name}}</h5>
+      <p>{{item.address}}</p>
+    </div>
   </div>
 </template>
 
 <script>
   import Header from '../../../components/header.vue';
+  import {
+    searchSite
+  } from '../../../api/takeout';
   export default {
     components: {
       Header
     },
     data() {
       return {
-        tag: this.$route.query.theCity
+        tag: this.$route.query.theCity,
+        address: '',
+        sites: [],
       }
-    }
+    },
+    methods: {
+      searchSites(e) {
+        let params = {
+          "city_id": this.$route.query.cityId,
+          "keyword": this.address,
+          "type": "search"
+        }
+        searchSite(params).then(res => {
+          this.sites = res
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      nextPage(address){
+        this.$router.push({name:'take-out',query:{address:address}})
+      }
+    },
+    mounted() {}
   }
 </script>
 
@@ -75,10 +107,28 @@
       }
     }
 
-    .search_title{
+    .search_title {
       text-indent: .29rem;
       font-weight: 400;
       color: #333;
+    }
+
+    .addressContainer {
+      padding: .4rem .5rem;
+      background-color: #fff;
+      border-top: 1px solid #e4e4e4;
+      border-bottom: 1px solid #e4e4e4;
+
+      h5 {
+        font-size: .4rem;
+        color: #333;
+        margin-bottom: .24rem;
+        font-weight: 400;
+      }
+
+      p {
+        color: #999;
+      }
     }
 
   }

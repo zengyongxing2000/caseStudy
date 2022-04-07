@@ -1,6 +1,6 @@
 <template>
   <div class="test">
-    <TestChild>
+    <!-- <TestChild>
       <template v-slot:footer='father'>
         这是父组件尾部内容
         <p>{{father.msg.firstname}}</p>
@@ -8,12 +8,10 @@
       <template v-slot:default="father">
         <p >{{father.msg.lastname}}</p>
       </template>
-
-      <!-- <template v-slot:header v-slot:default="fatherProps">
+      <template v-slot:header v-slot:default="fatherProps">
         <p>{{fatherProps.msg}}</p>
-      </template> -->
-    </TestChild>
-
+      </template>
+    </TestChild> -->
   </div>
 </template>
 

@@ -8,7 +8,7 @@
         <p class="header-right" @click="$router.push('/login')">{{"登录|注册"}}</p>
       </template>
       <template v-slot:header-right v-else>
-          <van-icon class="header-right" name="manager-o" size="0.61rem" @click="$router.push('/personal')"/>
+        <van-icon class="header-right" name="manager-o" size="0.61rem" @click="$router.push('/personal')" />
       </template>
     </Header>
     <!-- 轮播图 食品分类-->
@@ -22,6 +22,7 @@
         </div>
       </van-swipe-item>
     </van-swipe>
+
     <!-- 商家列表 -->
     <div class="shop_lsit">
       <p class="list_head">附近商家</p>
@@ -35,13 +36,40 @@
               <span></span>
               <span>{{item.name}}</span>
             </h4>
-
             <p>
               <span v-for="(item, index) in item.supports" :key="index">{{item.icon_name}}</span>
             </p>
           </div>
-          <p class="right_center"></p>
-          <p class="right_bottom"></p>
+          <div class="right_center">
+            <p>
+              <van-rate v-model="item.rating" :size="9" color="#ff9a0d" gutter="0" allow-half readonly />
+              <span class="rating">{{item.rating}}</span>
+              <span class="onSale">
+                月售{{item.recent_order_num}}单
+              </span>
+            </p>
+            <p>
+              <span class="delivery_style delivery_left" v-if="item.delivery_mode">{{item.delivery_mode.text}}</span>
+              <span class="delivery_style delivery_right">准时达</span>
+            </p>
+
+          </div>
+          <div class="right_bottom">
+            <p class="fee">
+              ¥{{item.float_minimum_order_amount}}起送
+              <span class="segmentation">/</span>
+              {{item.piecewise_agent_fee.tips}}
+            </p>
+            <p class="distance_time">
+              <span
+                v-if="Number(item.distance)">{{item.distance > 1000? (item.distance/1000).toFixed(2) + 'km': item.distance + 'm'}}
+                <span class="segmentation">/</span>
+              </span>
+              <span v-else>{{item.distance}}</span>
+              <span class="segmentation">/</span>
+              <span class="order_time">{{item.order_lead_time}}</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -62,8 +90,8 @@
     data() {
       return {
         tag: '请选择地址...',
-        username:'',
-        yzm:'',
+        username: '',
+        yzm: '',
         foodLists: [],
         shopLists: [],
         imgBaseUrl: 'https://fuss10.elemecdn.com', //图片域名地址
@@ -103,8 +131,12 @@
     mounted() {
       this.getShop()
       this.getShops()
-      if(localStorage.getItem("username")){
+      if (localStorage.getItem("username")) {
         this.username = localStorage.getItem("username")
+      }
+
+      if (this.$route.query.address) {
+        this.tag = this.$route.query.address
       }
     },
   }
@@ -113,6 +145,7 @@
 <style lang="scss" scoped>
   .page-takeOut {
     background-color: #f5f5f5;
+    $blue: #3190e8;
 
     // 轮播图
     .my-swipe {
@@ -163,7 +196,6 @@
 
       .shopswrap {
         display: flex;
-        width: 100%;
         padding: .43rem .25rem;
 
         .shopswrap_left {
@@ -175,10 +207,11 @@
         }
 
         .shops_right {
-          // flex: auto;
+          flex: auto;
 
           .right_head {
             display: flex;
+            justify-content: space-between;
 
             h4 {
               width: 5.31rem;
@@ -196,6 +229,76 @@
               }
             }
           }
+
+          .right_center {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: .32rem;
+
+            p {
+              display: flex;
+              align-items: center;
+
+              .rating {
+                display: inline-block;
+                color: #ff6000;
+                margin: 0 .12rem;
+              }
+
+              .onSale {
+                transform: scale(.8);
+                margin-left: .12rem;
+                color: #666;
+              }
+
+              .delivery_style {
+                padding: 0.025rem 0.05rem 0;
+                border-radius: .05rem;
+                margin-left: 0.05rem;
+                border: 1px;
+                transform: scale(.8);
+              }
+
+              .delivery_left {
+                color: #fff;
+                background-color: $blue;
+                border: .02rem solid $blue;
+              }
+
+              .delivery_right {
+                color: $blue;
+                border: .02rem solid $blue;
+              }
+            }
+          }
+
+          .right_bottom {
+            display: flex;
+            justify-content: space-between;
+            margin-top: .32rem;
+            .fee {
+              transform: scale(.9);
+              color: #666;
+            }
+
+            .distance_time {
+              transform: scale(.9);
+
+              span {
+                color: #999;
+              }
+
+              .order_time {
+                color: $blue;
+              }
+
+              .segmentation {
+                color: #ccc;
+              }
+            }
+          }
+
         }
       }
     }

@@ -3,7 +3,7 @@
     <slot name="header-left">
       <van-icon class="header-left" name="arrow-left" size="0.61rem" @click="$router.go(-1)" />
     </slot>
-    <p @click="goCitys">{{tag}}</p>
+    <p @click="goCitys" class="header-center">{{tag}}</p>
     <slot name="header-right"></slot>
   </div>
 </template>
@@ -54,6 +54,12 @@
     .header-left{
       position: absolute;
       left: .26rem;
+    }
+    .header-center{
+      width: 4.99rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     p {
