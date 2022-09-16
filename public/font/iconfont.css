@@ -2,9 +2,9 @@
   font-family: "iconfont"; /* Project id 3277473 */
   /* Color fonts */
   src: 
-       url('iconfont.woff2?t=1648371442567') format('woff2'),
-       url('iconfont.woff?t=1648371442567') format('woff'),
-       url('iconfont.ttf?t=1648371442567') format('truetype');
+       url('iconfont.woff2?t=1663312766099') format('woff2'),
+       url('iconfont.woff?t=1663312766099') format('woff'),
+       url('iconfont.ttf?t=1663312766099') format('truetype');
 }
 
 .iconfont {
@@ -13,6 +13,54 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cangpeitubiao_paixuzhandianpaixu:before {
+  content: "\e613";
+}
+
+.icon-didian:before {
+  content: "\e608";
+}
+
+.icon-shijianchuo:before {
+  content: "\e996";
+}
+
+.icon-pingfen:before {
+  content: "\e61f";
+}
+
+.icon-jiagezixun:before {
+  content: "\e68b";
+}
+
+.icon-daochu1024-07:before {
+  content: "\e617";
+}
+
+.icon-pin2:before {
+  content: "\e606";
+}
+
+.icon-fukuan:before {
+  content: "\e607";
+}
+
+.icon-xin:before {
+  content: "\e945";
+}
+
+.icon-qupiao:before {
+  content: "\e639";
+}
+
+.icon-yepian:before {
+  content: "\e60e";
+}
+
+.icon-zuixing-69:before {
+  content: "\e63e";
 }
 
 .icon-dianhua:before {
