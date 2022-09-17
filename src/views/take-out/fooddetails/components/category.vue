@@ -114,9 +114,9 @@ export default {
       }
     }
   }
-  .category__type::-webkit-scrollbar {
-    opacity: 0 !important;
-  }
+  // .category__type::-webkit-scrollbar {
+  //   opacity: 0 !important;
+  // }
 
   .category__content {
     width: 50%;
@@ -134,6 +134,7 @@ export default {
   }
   .category__content::-webkit-scrollbar {
     opacity: 0 !important;
+    display: none;
   }
 }
 </style>

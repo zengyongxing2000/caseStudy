@@ -7,7 +7,7 @@
           智能排序
         </span>
         <van-icon
-          v-if="showSuccess === '1'"
+          v-if="showSuccess === '0'"
           class="main__right"
           name="success"
           color="#4d8ee1"
@@ -19,7 +19,7 @@
           <i class="iconfont icon-didian"></i> 距离最近
         </span>
         <van-icon
-          v-if="showSuccess === '2'"
+          v-if="showSuccess === '5'"
           class="main__right"
           name="success"
           color="#4d8ee1"
@@ -31,7 +31,7 @@
           <i class="iconfont icon-daochu1024-07"></i> 销量最高
         </span>
         <van-icon
-          v-if="showSuccess === '3'"
+          v-if="showSuccess === '6'"
           class="main__right"
           name="success"
           color="#4d8ee1"
@@ -43,7 +43,7 @@
           <i class="iconfont icon-fukuan"></i> 起送价最低
         </span>
         <van-icon
-          v-if="showSuccess === '4'"
+          v-if="showSuccess === '1'"
           class="main__right"
           name="success"
           color="#4d8ee1"
@@ -55,7 +55,7 @@
           <i class="iconfont icon-shijianchuo"></i> 配送速度最快
         </span>
         <van-icon
-          v-if="showSuccess === '5'"
+          v-if="showSuccess === '2'"
           class="main__right"
           name="success"
           color="#4d8ee1"
@@ -87,6 +87,7 @@ export default {
   },
   methods: {
     changeSort(e) {
+      this.showSuccess = e.target.getAttribute("sortById");
       this.$emit("changeSort", e.target.getAttribute("sortById"));
     },
   },

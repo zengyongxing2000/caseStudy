@@ -77,3 +77,20 @@ export function foodActivity(params) {
     method: "get",
   });
 }
+
+export function shopDetails(params) {
+  //shopDetails页面商铺详情
+  return request({
+    url: "shopping/restaurant/" + params,
+    method: "get",
+  });
+}
+
+export function shopLeftList(params) {
+  //shopDetails页面商品左边列表
+  return request({
+    url: "/shopping/v2/menu",
+    method: "get",
+    params: { ...params },
+  });
+}

@@ -1,7 +1,12 @@
 <template>
   <div class="shop_lsit">
     <p class="list_head">附近商家</p>
-    <div class="shopswrap" v-for="(item, index) in bussineseList" :key="index">
+    <div
+      class="shopswrap"
+      v-for="(item, index) in bussineseList"
+      :key="index"
+      @click="gotoShopDetail(item.id)"
+    >
       <div class="shopswrap_left">
         <img :src="shopimgurl + item.image_path" alt="" />
       </div>
@@ -122,6 +127,12 @@ export default {
           console.log(err);
         });
     },
+
+    gotoShopDetail(id) {
+      //TODO: 网页关闭时清除这个缓存,推荐走vuex缓存
+      localStorage.setItem("shopid", id);
+      this.$router.push("/shopDetail");
+    },
   },
   mounted() {
     this.getShops();
@@ -147,6 +158,7 @@ export default {
   .shopswrap {
     display: flex;
     padding: 0.43rem 0.25rem;
+    border-bottom: 0.025rem solid #f1f1f1;
 
     .shopswrap_left {
       img {

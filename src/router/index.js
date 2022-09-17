@@ -72,7 +72,7 @@ const routes = [
     path: "/shopDetail",
     component: () => import("../views/take-out/shopdetail"),
     meta: {
-      TabbarShow: true,
+      TabbarShow: false,
     },
   },
   {
@@ -142,7 +142,7 @@ const routes = [
   },
   {
     path: "/fooddetails",
-    name: "food",
+    name: "fooddetails",
     component: () => import("../views/take-out/fooddetails"),
     meta: {
       TabbarShow: false,
