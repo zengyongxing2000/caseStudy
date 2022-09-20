@@ -148,6 +148,14 @@ const routes = [
       TabbarShow: false,
     },
   },
+  {
+    path: "/shippingAddress",
+    name: "shippingAddress",
+    component: () => import("../views/my/shippingAddress"),
+    meta: {
+      TabbarShow: false,
+    },
+  },
 ];
 
 const router = new VueRouter({

@@ -94,3 +94,31 @@ export function shopLeftList(params) {
     params: { ...params },
   });
 }
+
+export function ratingScores(params) {
+  //shopDetails页面评价
+  return request({
+    url: "/ugc/v2/restaurants/" + params + "/ratings/scores",
+    method: "get",
+  });
+}
+
+export function ratingTags(params) {
+  //shopDetails页面评价标签
+  return request({
+    url: "ugc/v2/restaurants/" + params + "/ratings/tags",
+    method: "get",
+  });
+}
+
+export function getRatingList(params) {
+  //shopDetails页面评论列表
+  return request({
+    url: "/ugc/v2/restaurants/" + params + "/ratings",
+    method: "get",
+  });
+}
+// has_content: true,
+// offset,
+// limit: 10,
+// tag_name,

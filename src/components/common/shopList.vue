@@ -1,12 +1,7 @@
 <template>
   <div class="shop_lsit">
     <p class="list_head">附近商家</p>
-    <div
-      class="shopswrap"
-      v-for="(item, index) in bussineseList"
-      :key="index"
-      @click="gotoShopDetail(item.id)"
-    >
+    <div class="shopswrap" v-for="(item, index) in bussineseList" :key="index" @click="gotoShopDetail(item.id)">
       <div class="shopswrap_left">
         <img :src="shopimgurl + item.image_path" alt="" />
       </div>
@@ -18,29 +13,18 @@
           </h4>
           <p>
             <span v-for="(item, index) in item.supports" :key="index">{{
-              item.icon_name
+            item.icon_name
             }}</span>
           </p>
         </div>
         <div class="right_center">
           <p>
-            <van-rate
-              v-model="item.rating"
-              :size="9"
-              color="#ff9a0d"
-              gutter="0"
-              allow-half
-              readonly
-            />
+            <van-rate v-model="item.rating" :size="9" color="#ff9a0d" gutter="0" allow-half readonly />
             <span class="rating">{{ item.rating }}</span>
             <span class="onSale"> 月售{{ item.recent_order_num }}单 </span>
           </p>
           <p>
-            <span
-              class="delivery_style delivery_left"
-              v-if="item.delivery_mode"
-              >{{ item.delivery_mode.text }}</span
-            >
+            <span class="delivery_style delivery_left" v-if="item.delivery_mode">{{ item.delivery_mode.text }}</span>
             <span class="delivery_style delivery_right">准时达</span>
           </p>
         </div>
@@ -51,12 +35,11 @@
             {{ item.piecewise_agent_fee.tips }}
           </p>
           <p class="distance_time">
-            <span v-if="Number(item.distance)"
-              >{{
-                item.distance > 1000
-                  ? (item.distance / 1000).toFixed(2) + "km"
-                  : item.distance + "m"
-              }}
+            <span v-if="Number(item.distance)">{{
+            item.distance > 1000
+            ? (item.distance / 1000).toFixed(2) + "km"
+            : item.distance + "m"
+            }}
               <span class="segmentation">/</span>
             </span>
             <span v-else>{{ item.distance }}</span>
@@ -129,10 +112,10 @@ export default {
     },
 
     gotoShopDetail(id) {
-      //TODO: 网页关闭时清除这个缓存,推荐走vuex缓存
+      //TODO: 网页关闭时清除这个缓存,推荐走vuex
       localStorage.setItem("shopid", id);
       this.$router.push("/shopDetail");
-    },
+    }
   },
   mounted() {
     this.getShops();
@@ -147,6 +130,11 @@ export default {
   border-top: 0.01rem solid #e4e4e4;
   background-color: #fff;
   $blue: #3190e8;
+
+  ._v-container {
+    position: absolute;
+    top: auto;
+  }
 
   .list_head {
     color: #999;
@@ -239,6 +227,7 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-top: 0.32rem;
+
         .fee {
           transform: scale(0.9);
           color: #666;

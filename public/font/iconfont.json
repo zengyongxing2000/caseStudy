@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "31885094",
+      "name": "24gf-cart10-copy",
+      "font_class": "buyCat",
+      "unicode": "eeb5",
+      "unicode_decimal": 61109
+    },
+    {
       "icon_id": "16563741",
       "name": "排序、站点排序",
       "font_class": "cangpeitubiao_paixuzhandianpaixu",

@@ -10,12 +10,7 @@
         </p>
       </template>
       <template v-slot:header-right v-else>
-        <van-icon
-          class="header-right"
-          name="manager-o"
-          size="0.61rem"
-          @click="$router.push('/personal')"
-        />
+        <van-icon class="header-right" name="manager-o" size="0.61rem" @click="$router.push('/personal')" />
       </template>
     </Header>
     <!-- 轮播图 食品分类-->
@@ -31,7 +26,9 @@
     </van-swipe>
 
     <!-- 商家列表 -->
+    <!-- TODO: 下拉加载-->
     <ShopList></ShopList>
+
   </div>
 </template>
 

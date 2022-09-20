@@ -2,28 +2,18 @@
   <div>
     <Header :tag="tag"> </Header>
     <van-dropdown-menu active-color="#1989fa">
-      <van-dropdown-item
-        v-model="value1"
-        :options="option1"
-        :title="vdmTitle ? vdmTitle : '分类'"
-        ref="vdm"
-      >
+      <van-dropdown-item v-model="value1" :options="option1" :title="vdmTitle ? vdmTitle : '分类'" ref="vdm">
         <template>
           <Category @changeTitle="setTtile"></Category>
         </template>
       </van-dropdown-item>
-      <van-dropdown-item
-        v-model="value2"
-        :options="option2"
-        title="排序"
-        ref="vdm2"
-      >
+      <van-dropdown-item v-model="value2" :options="option2" title="排序" ref="vdm2">
         <template>
           <Sort @changeSort="setSort"></Sort>
         </template>
       </van-dropdown-item>
       <van-dropdown-item title="筛选">
-        //TODO: 优化样式和接口逻辑
+        <!--TODO: 优化样式和接口逻辑 -->
         <template>
           <div class="headr-peison">
             <div>配送方式</div>
@@ -34,24 +24,18 @@
             <div class="headr-peison-item2">
               <template v-for="footItem in list" ::key="footItem.id">
                 <div class="headr-peison-item2-list">
-                  <span
-                    :style="{
-                      color: '#' + footItem.icon_color,
-                      border: `1px solid #${footItem.icon_color}`,
-                    }"
-                    >{{ footItem.icon_name }}</span
-                  >{{ footItem.name }}
-                </div></template
-              >
+                  <span :style="{
+                    color: '#' + footItem.icon_color,
+                    border: `1px solid #${footItem.icon_color}`,
+                  }">{{ footItem.icon_name }}</span>{{ footItem.name }}
+                </div>
+              </template>
             </div>
           </div>
         </template>
       </van-dropdown-item>
     </van-dropdown-menu>
-    <ShopList
-      :restaurant_category_ids="restaurant_category_ids"
-      :sortId="sortIds"
-    ></ShopList>
+    <ShopList :restaurant_category_ids="restaurant_category_ids" :sortId="sortIds"></ShopList>
   </div>
 </template>
 
@@ -63,7 +47,7 @@ import Category from "./components/category.vue";
 import Sort from "./components/sort.vue";
 export default {
   components: { Header, ShopList, Category, Sort },
-  created() {},
+  created() { },
   data() {
     return {
       tag: "商超便利",
@@ -85,7 +69,6 @@ export default {
       });
     },
     setTtile(val, sortId) {
-      // console.log(val, sortId);
       this.vdmTitle = val;
       this.restaurant_category_ids = sortId;
       this.$refs.vdm.toggle();
@@ -110,17 +93,18 @@ export default {
 
 .headr-peison {
   padding: 10px 20px;
+
   .headr-peison-item {
     width: 30%;
     border: 1px solid #e5e5e5;
   }
+
   .headr-peison-item2 {
     display: flex;
     flex-wrap: wrap;
+
     .headr-peison-item2-list {
       width: 30%;
-      span {
-      }
     }
   }
 }
