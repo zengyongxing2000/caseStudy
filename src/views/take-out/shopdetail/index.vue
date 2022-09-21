@@ -60,7 +60,7 @@
               <!-- TODO: 消息提示框 思路：框架没有这个组件，可以去找图片素材-->
             </p>
             <template v-for="children in ItemContent.foods" ::key="children.id">
-              <div class="childrenContent">
+              <div class="childrenContent" @click="goShopDetail(children)">
                 <div class="childrenContent__left">
                   <img :src="
                     shopimgurl + children.image_path ||
@@ -86,7 +86,7 @@
                       <span>{{ children.specfoods[0].price }}</span>
                       <span v-if="children.specifications.length">起</span>
                     </section>
-                    <van-icon name="add" color="#4d8ee1" size="21" />
+                    <van-icon name="add" color="#4d8ee1" size="21" @click.stop="addBuyCat" />
                   </footer>
                 </div>
               </div>
@@ -217,14 +217,14 @@ export default {
       //商品详情
       const shopid = localStorage.getItem("shopid");
       shopDetails(shopid).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.headerData = res;
       });
       //商品模块--食品列表
       const params = { restaurant_id: shopid };
       shopLeftList(params).then((res) => {
         this.shopList = res;
-        console.log(res);
+        // console.log(res);
       });
       // 评价模块--商品综合评价
       ratingScores(shopid).then(res => {
@@ -232,12 +232,12 @@ export default {
       })
       //评价模块--标签Tags
       ratingTags(shopid).then(res => {
-        console.log(res);
+        // console.log(res);
         this.TagData = res
       })
       //评价模块--评论列表
       getRatingList(shopid).then(res => {
-        console.log(res);
+        // console.log(res);
         this.ratingList = res
       })
 
@@ -259,25 +259,23 @@ export default {
       //   this.ratingScroll.refresh();
       // });
     },
+    addBuyCat() {
+
+    },
+    goShopDetail(item) {
+      this.$router.push({
+        path: '/foodDetail',
+        query: {
+          datas: JSON.stringify(item),
+        }
+      })
+    }
 
   },
   mounted() {
-    // // 监听滚动事件
-    // this.$nextTick(function () {
-    //   // this.addScrollFun();
-    //   document
-    //     .querySelector(".shopMenuContent")
-    //     .addEventListener(
-    //       "scroll",
-    //       (this.scroll = document.querySelector(".shopMenuContent").scrollTop())
-    //     ); // 监听页面滚动
-    // });
-    // console.log(this.scroll);
     this.initData();
   },
-  beforeDestroy() {
-    // window.removeEventListener("scroll", this.scroll); //卸载
-  },
+  beforeDestroy() { },
 };
 </script>
 
@@ -575,11 +573,16 @@ export default {
   }
 
   .comments {
-    display: block !important;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    width: 100%;
+    // display: block !important;
   }
 
   .score {
     display: flex;
+    flex: 1;
     padding: 18.7px .31rem;
     margin-bottom: .31rem;
     background-color: #fff;
@@ -659,12 +662,14 @@ export default {
 
   /* 评论列表 */
   .rating_list_ul {
-    background-color: #fff;
     padding: 0 .29rem;
+    width: 100%;
+    background-color: #fff;
 
     .rating_list_li {
       border-top: 1px solid #f1f1f1;
       display: flex;
+      flex: 1;
       padding: .37rem 0;
 
       .user_avatar {

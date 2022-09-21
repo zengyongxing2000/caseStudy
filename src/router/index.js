@@ -141,9 +141,17 @@ const routes = [
     },
   },
   {
-    path: "/fooddetails",
-    name: "fooddetails",
-    component: () => import("../views/take-out/fooddetails"),
+    path: "/foodDetail",
+    name: "foodDetail",
+    component: () => import("../views/take-out/foodDetail"),
+    meta: {
+      TabbarShow: false,
+    },
+  },
+  {
+    path: "/choose",
+    name: "choose",
+    component: () => import("../views/take-out/choose"),
     meta: {
       TabbarShow: false,
     },

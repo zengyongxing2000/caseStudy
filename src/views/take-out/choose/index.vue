@@ -16,18 +16,19 @@
         <!--TODO: 优化样式和接口逻辑 -->
         <template>
           <div class="headr-peison">
-            <div>配送方式</div>
+            <div class="filter_header_style">配送方式</div>
             <div class="headr-peison-item">
-              <i class="iconfont icon-yepian"></i>蜂鸟专送
+              <i class="iconfont icon-yepian  zhuanson"></i>蜂鸟专送
             </div>
-            <div>商家属性(可以多选)</div>
+            <div class="filter_header_style">商家属性 &nbsp;&nbsp;&nbsp;&nbsp;(可以多选)</div>
             <div class="headr-peison-item2">
-              <template v-for="footItem in list" ::key="footItem.id">
-                <div class="headr-peison-item2-list">
-                  <span :style="{
+              <template v-for="(footItem,index) in list" ::key="footItem.id">
+                <div class="headr-peison-item2-list" @click="listItem(footItem,index)">
+                  <span class="list-item" :style="{
                     color: '#' + footItem.icon_color,
                     border: `1px solid #${footItem.icon_color}`,
-                  }">{{ footItem.icon_name }}</span>{{ footItem.name }}
+                  }">{{ footItem.icon_name }}</span>
+                  <span class="list-name">{{ footItem.name }}</span>
                 </div>
               </template>
             </div>
@@ -44,9 +45,8 @@ import Header from "@/components/header.vue";
 import ShopList from "@/components/common/shopList.vue";
 import { foodActivity } from "@/api/takeout";
 import Category from "./components/category.vue";
-import Sort from "./components/sort.vue";
 export default {
-  components: { Header, ShopList, Category, Sort },
+  components: { Header, ShopList, Category },
   created() { },
   data() {
     return {
@@ -59,6 +59,8 @@ export default {
       option2: [],
       restaurant_category_ids: "",
       sortIds: "",
+      isShow: "",
+      iconList: [],
     };
   },
   methods: {
@@ -77,6 +79,16 @@ export default {
       this.sortIds = val;
       this.$refs.vdm2.toggle();
     },
+    listItem(footItem, index) {
+      this.iconList.push(index)
+      this.iconList = Array.from(new Set(this.iconList))
+      this.iconList.sort()
+      if (this.iconList.indexOf(index)) {
+        console.log(1)
+      }
+
+
+    }
   },
   mounted() {
     this.shopstatus();
@@ -94,9 +106,28 @@ export default {
 .headr-peison {
   padding: 10px 20px;
 
+  .filter_header_style {
+    font-size: .32rem;
+    color: #333;
+    line-height: .85rem;
+    height: .85rem;
+    text-align: left;
+    background-color: #fff;
+  }
+
+  .filter_header_style {
+    height: 35px;
+    font-size: 12px;
+  }
+
   .headr-peison-item {
     width: 30%;
     border: 1px solid #e5e5e5;
+    padding: 4px;
+
+    .zhuanson {
+      padding-right: 5px;
+    }
   }
 
   .headr-peison-item2 {
@@ -104,7 +135,22 @@ export default {
     flex-wrap: wrap;
 
     .headr-peison-item2-list {
-      width: 30%;
+      width: 33%;
+      box-sizing: border-box;
+
+      .active {
+        color: #4d8ee1;
+      }
+
+      .list-item {
+        padding: 0 3px;
+      }
+
+      .list-name {
+        margin-left: 3px;
+      }
+
+      padding: 5px;
     }
   }
 }

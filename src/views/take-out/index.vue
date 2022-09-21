@@ -17,7 +17,7 @@
     <van-swipe class="my-swipe" indicator-color="#3478f6">
       <van-swipe-item v-for="(item, index) in foodLists" :key="index">
         <div v-for="(item, index) in item" :key="index">
-          <div class="swipe-item" @click="$router.push('fooddetails')">
+          <div class="swipe-item" @click="$router.push('choose')">
             <img :src="imgBaseUrl + item.image_url" alt="" />
             {{ item.title }}
           </div>
