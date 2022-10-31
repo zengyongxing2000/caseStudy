@@ -1,15 +1,29 @@
 <template>
   <div class="apge-detail">
-    <van-icon class="backTop" name="arrow-left" color="#fff" size="26px" @click="$router.go(-1)" />
+    <van-icon
+      class="backTop"
+      name="arrow-left"
+      color="#fff"
+      size="26px"
+      @click="$router.go(-1)"
+    />
     <!-- 头部商品详情模块-->
     <div class="detail__header">
       <div class="bgcImg">
-        <img v-if="headerData.image_path" :src="shopimgurl + headerData.image_path" alt="" />
+        <img
+          v-if="headerData.image_path"
+          :src="shopimgurl + headerData.image_path"
+          alt=""
+        />
       </div>
       <div class="headerwrap">
         <div class="header__main">
           <div class="shopswrap_left">
-            <img v-if="headerData.image_path" :src="shopimgurl + headerData.image_path" alt="" />
+            <img
+              v-if="headerData.image_path"
+              :src="shopimgurl + headerData.image_path"
+              alt=""
+            />
           </div>
           <div class="shops_right">
             <h4 class="right_head">
@@ -17,18 +31,25 @@
             </h4>
             <p class="right_center">
               商家配送／{{ headerData.order_lead_time }}分钟送达／配送费¥{{
-              headerData.float_delivery_fee
+                headerData.float_delivery_fee
               }}
             </p>
             <p>公告:&nbsp;&nbsp;&nbsp;{{ headerData.promotion_info }}</p>
           </div>
         </div>
-        <div class="header__activity" v-if="headerData.activities && headerData.activities[0]">
+        <div
+          class="header__activity"
+          v-if="headerData.activities && headerData.activities[0]"
+        >
           <p class="ellipsis">
-            <span class="tip_icon" :style="{
-              backgroundColor: '#' + headerData.activities[0].icon_color,
-              borderColor: '#' + headerData.activities[0].icon_color,
-            }">{{ headerData.activities[0].icon_name }}</span>
+            <span
+              class="tip_icon"
+              :style="{
+                backgroundColor: '#' + headerData.activities[0].icon_color,
+                borderColor: '#' + headerData.activities[0].icon_color,
+              }"
+              >{{ headerData.activities[0].icon_name }}</span
+            >
             <span>{{ headerData.activities[0].description }}（APP专享）</span>
           </p>
           <p>{{ headerData.activities.length }}个活动</p>
@@ -39,8 +60,12 @@
       <!--TODO: 锚点双向绑定 滚轴联动锚点-->
       <van-tab title="商品" name="a">
         <ul class="shopMenu">
-          <li v-for="(listItem, index) in shopList" :key="index" :class="{ liinex: index === lsIndex }"
-            @click="goAnchor(listItem.name, index)">
+          <li
+            v-for="(listItem, index) in shopList"
+            :key="index"
+            :class="{ liinex: index === lsIndex }"
+            @click="goAnchor(listItem.name, index)"
+          >
             <span class="shopMenu__item">
               {{ listItem.name }}
             </span>
@@ -63,10 +88,13 @@
             <template v-for="children in ItemContent.foods" ::key="children.id">
               <div class="childrenContent" @click="goShopDetail(children)">
                 <div class="childrenContent__left">
-                  <img :src="
-                    shopimgurl + children.image_path ||
-                    '../../../assets/err.jpg'
-                  " :onerror="badImg" />
+                  <img
+                    :src="
+                      shopimgurl + children.image_path ||
+                      '../../../assets/err.jpg'
+                    "
+                    :onerror="badImg"
+                  />
                 </div>
                 <div class="childrenContent__right">
                   <h3 class="childrenName">{{ children.name }}</h3>
@@ -76,10 +104,13 @@
                     <span>好评率{{ children.satisfy_rate }}%</span>
                   </p>
                   <p v-if="children.activity" class="children__activity">
-                    <span :style="{
-                      color: '#' + children.activity.image_text_color,
-                      borderColor: '#' + children.activity.icon_color,
-                    }">{{ children.activity.image_text }}</span>
+                    <span
+                      :style="{
+                        color: '#' + children.activity.image_text_color,
+                        borderColor: '#' + children.activity.icon_color,
+                      }"
+                      >{{ children.activity.image_text }}</span
+                    >
                   </p>
                   <footer>
                     <section class="food_price">
@@ -89,10 +120,25 @@
                     </section>
                     <!--TODO: shopNumber数量为0时，给一个消失的动画-->
                     <p class="buycat">
-                      <van-icon  name="clear" color="#4d8ee1" size="21"
-                        @click.stop="delectBuyCat(ItemContent.id,children)" />
-                      <span  ref="nbr" :id="children.item_id">{{children.number}}</span>
-                      <van-icon name="add" color="#4d8ee1" size="21" @click.stop="addBuyCat(ItemContent.id,children)" />
+                      <van-icon
+                        v-if="children.shopNumber"
+                        name="clear"
+                        color="#4d8ee1"
+                        size="21"
+                        @click.stop="delectBuyCat(ItemContent.id, children)"
+                      />
+                      <span
+                        v-if="children.shopNumber"
+                        ref="nbr"
+                        :id="children.item_id"
+                        >{{ children.shopNumber }}</span
+                      >
+                      <van-icon
+                        name="add"
+                        color="#4d8ee1"
+                        size="21"
+                        @click.stop="addBuyCat(ItemContent.id, children)"
+                      />
                     </p>
                   </footer>
                 </div>
@@ -122,58 +168,90 @@
           <div class="score__left">
             <p class="left__fs">{{ headerData.rating }}</p>
             <p class="left__evaluation">综合评价</p>
-            <p style="color: #999;">
-              高于周边商家{{
-              (ScoresData.compare_rating * 100).toFixed(1)
-              }}%
+            <p style="color: #999">
+              高于周边商家{{ (ScoresData.compare_rating * 100).toFixed(1) }}%
             </p>
           </div>
           <div class="score__right">
             <p>
               <span>服务态度</span>
-              <van-rate v-model="ScoresData.food_score" allow-half void-icon="star" void-color="#eee" color="#f19f3b"
-                size="9" readonly style="transform: scale(0.8);margin-left: -8px;" />
+              <van-rate
+                v-model="ScoresData.food_score"
+                allow-half
+                void-icon="star"
+                void-color="#eee"
+                color="#f19f3b"
+                size="9"
+                readonly
+                style="transform: scale(0.8); margin-left: -8px"
+              />
               <span class="rating_num" v-if="ScoresData.service_score">{{
-              ScoresData.service_score.toFixed(1)
+                ScoresData.service_score.toFixed(1)
               }}</span>
             </p>
             <p>
               <span>菜品评价</span>
-              <van-rate v-model="ScoresData.food_score" allow-half color="#f19f3b" void-icon="star" void-color="#eee"
-                size="9" readonly style="transform: scale(0.8);margin-left: -8px;" />
-              <span class="rating_num" v-if=" ScoresData.food_score">{{
-              ScoresData.food_score.toFixed(1)
+              <van-rate
+                v-model="ScoresData.food_score"
+                allow-half
+                color="#f19f3b"
+                void-icon="star"
+                void-color="#eee"
+                size="9"
+                readonly
+                style="transform: scale(0.8); margin-left: -8px"
+              />
+              <span class="rating_num" v-if="ScoresData.food_score">{{
+                ScoresData.food_score.toFixed(1)
               }}</span>
             </p>
             <p>
               <span>送达时间</span>
-              <span class="rating_time">{{ ScoresData.order_lead_time }}分钟</span>
+              <span class="rating_time"
+                >{{ ScoresData.order_lead_time }}分钟</span
+              >
             </p>
-
           </div>
         </div>
         <!-- /商铺综合评价-->
         <ul class="tab__list">
-          <li v-for="(item, index) in TagData" :key="index" :class="{
-            unsatisfied: item.unsatisfied,
-            tagActivity: ratingTageIndex == index,
-          }" @click="changeTgeIndex(index, item.name)">
+          <li
+            v-for="(item, index) in TagData"
+            :key="index"
+            :class="{
+              unsatisfied: item.unsatisfied,
+              tagActivity: ratingTageIndex == index,
+            }"
+            @click="changeTgeIndex(index, item.name)"
+          >
             {{ item.name }}({{ item.count }})
           </li>
         </ul>
         <!-- 商铺标签-->
         <ul class="rating_list_ul">
-          <li v-for="(item, index) in ratingList" :key="index" class="rating_list_li">
+          <li
+            v-for="(item, index) in ratingList"
+            :key="index"
+            class="rating_list_li"
+          >
             <img :src="getImgPath(item.avatar)" class="user_avatar" />
             <section class="rating_list_details">
               <header>
                 <section class="username_star">
                   <p class="username">{{ item.username }}</p>
                   <p class="star_desc">
-                    <van-rate v-model="item.rating_star" allow-half void-icon="star" void-color="#eee" color="#f19f3b"
-                      size="9" readonly style="transform: scale(0.8);margin-left: -8px;" />
+                    <van-rate
+                      v-model="item.rating_star"
+                      allow-half
+                      void-icon="star"
+                      void-color="#eee"
+                      color="#f19f3b"
+                      size="9"
+                      readonly
+                      style="transform: scale(0.8); margin-left: -8px"
+                    />
                     <span class="time_spent_desc">{{
-                    item.time_spent_desc
+                      item.time_spent_desc
                     }}</span>
                   </p>
                 </section>
@@ -181,11 +259,18 @@
               </header>
               <ul class="food_img_ul">
                 <li v-for="(item, index) in item.item_ratings" :key="index">
-                  <img :src="getImgPath(item.image_hash)" v-if="item.image_hash" />
+                  <img
+                    :src="getImgPath(item.image_hash)"
+                    v-if="item.image_hash"
+                  />
                 </li>
               </ul>
               <ul class="food_name_ul">
-                <li v-for="(item, index) in item.item_ratings" :key="index" class="ellipsis">
+                <li
+                  v-for="(item, index) in item.item_ratings"
+                  :key="index"
+                  class="ellipsis"
+                >
                   {{ item.food_name }}
                 </li>
               </ul>
@@ -196,11 +281,16 @@
       </van-tab>
     </van-tabs>
   </div>
-
 </template>
 
 <script>
-import { shopDetails, shopLeftList, ratingScores, ratingTags, getRatingList } from "@/api/takeout.js";
+import {
+  shopDetails,
+  shopLeftList,
+  ratingScores,
+  ratingTags,
+  getRatingList,
+} from "@/api/takeout.js";
 import { getImgPath } from "@/components/mixin.js";
 export default {
   data() {
@@ -222,25 +312,7 @@ export default {
     };
   },
   mixins: [getImgPath],
-  computed: {
-    shopNumber() {
-      // FIXME: 修复computed失效问题
-      this.$nextTick(() => {
-        const flag = this.goodsCollection.some(item => item.id === this.$refs.nbr[0].id)
-
-        if (flag) {
-          for (const key in this.goodsCollection) {
-            if (this.goodsCollection[key].id === this.$refs.nbr[0].id) {
-              return this.goodsCollection[key].shopNumber
-            }
-          }
-        } else {
-          return 0
-        }
-      })
-    }
-
-  },
+  computed: {},
   methods: {
     initData() {
       //商品详情
@@ -252,33 +324,28 @@ export default {
       //商品模块--食品列表
       const params = { restaurant_id: shopid };
       shopLeftList(params).then((res) => {
-        // console.log(res[0].foods);
-        
-        res.forEach(item=>{
-          // console.log(item);
-          item.foods.forEach(item => {
-          item.number = 0
-        })
-
-        })
-       
-         this.shopList = res;
+        this.shopList = res;
+        this.shopList.forEach((item) => {
+          item.foods.forEach((item1) => {
+            item1.shopNumber = 0;
+          });
+        });
+        // console.log(res);
       });
       // 评价模块--商品综合评价
-      ratingScores(shopid).then(res => {
-        this.ScoresData = res
-      })
+      ratingScores(shopid).then((res) => {
+        this.ScoresData = res;
+      });
       //评价模块--标签Tags
-      ratingTags(shopid).then(res => {
+      ratingTags(shopid).then((res) => {
         // console.log(res);
-        this.TagData = res
-      })
+        this.TagData = res;
+      });
       //评价模块--评论列表
-      getRatingList(shopid).then(res => {
+      getRatingList(shopid).then((res) => {
         // console.log(res);
-        this.ratingList = res
-      })
-
+        this.ratingList = res;
+      });
     },
     //锚点跳转
     goAnchor(selector, index) {
@@ -291,35 +358,48 @@ export default {
       this.ratingTageIndex = index;
     },
     addBuyCat(id, params) {
-    let obj={
-          number:params.number,
-          id,
-        }
-    this.$store.commit('addNumber',obj)
-    },
-    delectBuyCat(id,params) {
-      if(params.number>0){
-        let obj={
-          number:params.number,
-          id,
-        }
-        this.$store.commit('deleteNumber',obj)
+      let index = this.shopList.findIndex((item) => item.id === id);
+      this.shopList[index].foods[
+        this.shopList[index].foods.findIndex((item) => item._id === params._id)
+      ].shopNumber += 1;
+      // 商家name id 传递商品名字 价格 数量
+      this.shopList[index].foods = [...this.shopList[index].foods];
+      var shopcar = {
+        shopName:'',
+        shopId:'',
+        goodsArr:[]
       }
+      var shopItem = {
+        name: params.name,
+        id: params._id,
+        num: this.shopList[index].foods[
+        this.shopList[index].foods.findIndex((item) => item._id === params._id)
+      ].shopNumber
+      }
+      shopcar.goodsArr.push(shopItem)
+      this.$store.dispatch("addCart", shopcar);
+    },
+    delectBuyCat(id, params) {
+      let index = this.shopList.findIndex((item) => item.id === id);
+      this.shopList[index].foods[
+        this.shopList[index].foods.findIndex((item) => item._id === params._id)
+      ].shopNumber -= 1;
+      this.shopList[index].foods = [...this.shopList[index].foods];
+      this.$store.dispatch("delectCart");
     },
     goShopDetail(item) {
       this.$router.push({
-        path: '/foodDetail',
+        path: "/foodDetail",
         query: {
           datas: JSON.stringify(item),
-        }
-      })
-    }
-
+        },
+      });
+    },
   },
   mounted() {
     this.initData();
   },
-  beforeDestroy() { },
+  beforeDestroy() {},
 };
 </script>
 
@@ -544,7 +624,6 @@ export default {
           margin-top: 0.19rem;
 
           .food_price {
-
             span {
               font-family: "Helvetica Neue", Tahoma, Arial;
             }
@@ -573,7 +652,7 @@ export default {
             align-items: center;
 
             span {
-              padding: 0 .27rem;
+              padding: 0 0.27rem;
             }
           }
         }
@@ -653,8 +732,8 @@ export default {
   .score {
     display: flex;
     flex: 1;
-    padding: 18.7px .31rem;
-    margin-bottom: .31rem;
+    padding: 18.7px 0.31rem;
+    margin-bottom: 0.31rem;
     background-color: #fff;
 
     /* 商铺综合评价 */
@@ -663,7 +742,7 @@ export default {
       text-align: center;
 
       .left__fs {
-        font-size: .75rem;
+        font-size: 0.75rem;
         color: #f60;
       }
 
@@ -672,7 +751,6 @@ export default {
         color: #666;
         margin-bottom: 2.375px;
       }
-
     }
 
     .score__right {
@@ -684,7 +762,7 @@ export default {
         }
 
         span:nth-of-type(2) {
-          font-size: .35rem;
+          font-size: 0.35rem;
           color: #f60;
           margin-right: 11.7px;
         }
@@ -698,8 +776,6 @@ export default {
         }
       }
     }
-
-
   }
 
   /* 商铺标签 */
@@ -707,16 +783,16 @@ export default {
     display: flex;
     flex-wrap: wrap;
     background-color: #fff;
-    padding: .29rem;
+    padding: 0.29rem;
 
     li {
-      font-size: .37rem;
+      font-size: 0.37rem;
       color: #6d7885;
-      padding: .19rem;
+      padding: 0.19rem;
       background-color: #ebf5ff;
       border-radius: 0.2rem;
       border: 1px;
-      margin: 0 .24rem 4.68px 0;
+      margin: 0 0.24rem 4.68px 0;
     }
 
     .unsatisfied {
@@ -732,7 +808,7 @@ export default {
 
   /* 评论列表 */
   .rating_list_ul {
-    padding: 0 .29rem;
+    padding: 0 0.29rem;
     width: 100%;
     background-color: #fff;
 
@@ -740,14 +816,14 @@ export default {
       border-top: 1px solid #f1f1f1;
       display: flex;
       flex: 1;
-      padding: .37rem 0;
+      padding: 0.37rem 0;
 
       .user_avatar {
-        width: .93rem;
-        height: .93rem;
+        width: 0.93rem;
+        height: 0.93rem;
         border: 0.025rem;
         border-radius: 50%;
-        margin-right: .48rem;
+        margin-right: 0.48rem;
       }
 
       .rating_list_details {
@@ -757,7 +833,7 @@ export default {
           display: flex;
           flex: 1;
           justify-content: space-between;
-          margin-bottom: .19rem;
+          margin-bottom: 0.19rem;
 
           .username_star {
             color: #666;
@@ -773,7 +849,7 @@ export default {
 
               .time_spent_desc {
                 color: #666;
-                margin-left: .09rem;
+                margin-left: 0.09rem;
               }
             }
           }
@@ -791,7 +867,7 @@ export default {
           li {
             img {
               width: 1.87rem;
-              margin-right: .25rem;
+              margin-right: 0.25rem;
               display: block;
             }
           }
@@ -802,13 +878,13 @@ export default {
           flex-wrap: wrap;
 
           li {
-            font-size: .34rem;
+            font-size: 0.34rem;
             color: #999;
             width: 1.36rem;
-            padding: .13rem;
+            padding: 0.13rem;
             border: 0.586px solid #ebebeb;
             border-radius: 0.15rem;
-            margin-right: .19rem;
+            margin-right: 0.19rem;
             margin-bottom: 4px;
             overflow: hidden;
             text-overflow: ellipsis;

@@ -2,12 +2,22 @@
   <div>
     <Header :tag="tag"> </Header>
     <van-dropdown-menu active-color="#1989fa">
-      <van-dropdown-item v-model="value1" :options="option1" :title="vdmTitle ? vdmTitle : '分类'" ref="vdm">
+      <van-dropdown-item
+        v-model="value1"
+        :options="option1"
+        :title="vdmTitle ? vdmTitle : '分类'"
+        ref="vdm"
+      >
         <template>
           <Category @changeTitle="setTtile"></Category>
         </template>
       </van-dropdown-item>
-      <van-dropdown-item v-model="value2" :options="option2" title="排序" ref="vdm2">
+      <van-dropdown-item
+        v-model="value2"
+        :options="option2"
+        title="排序"
+        ref="vdm2"
+      >
         <template>
           <Sort @changeSort="setSort"></Sort>
         </template>
@@ -18,16 +28,26 @@
           <div class="headr-peison">
             <div class="filter_header_style">配送方式</div>
             <div class="headr-peison-item">
-              <i class="iconfont icon-yepian  zhuanson"></i>蜂鸟专送
+              <i class="iconfont icon-yepian zhuanson"></i>蜂鸟专送
             </div>
-            <div class="filter_header_style">商家属性 &nbsp;&nbsp;&nbsp;&nbsp;(可以多选)</div>
+            <div class="filter_header_style">
+              商家属性 &nbsp;&nbsp;&nbsp;&nbsp;(可以多选)
+            </div>
             <div class="headr-peison-item2">
-              <template v-for="(footItem,index) in list" ::key="footItem.id">
-                <div class="headr-peison-item2-list" @click="listItem(footItem,index)">
-                  <span class="list-item" :style="{
-                    color: '#' + footItem.icon_color,
-                    border: `1px solid #${footItem.icon_color}`,
-                  }">{{ footItem.icon_name }}</span>
+              <template v-for="(footItem, index) in list" ::key="footItem.id">
+                <div
+                  class="headr-peison-item2-list"
+                  @click="listItem(footItem.id)"
+                >
+                  <span
+                    class="list-item"
+                    v-show="iconList.indexOf(footItem.id) === -1"
+                    :style="{
+                      color: '#' + footItem.icon_color,
+                      border: `1px solid #${footItem.icon_color}`,
+                    }"
+                    >{{ footItem.icon_name }}</span
+                  >
                   <span class="list-name">{{ footItem.name }}</span>
                 </div>
               </template>
@@ -36,18 +56,22 @@
         </template>
       </van-dropdown-item>
     </van-dropdown-menu>
-    <ShopList :restaurant_category_ids="restaurant_category_ids" :sortId="sortIds"></ShopList>
+    <ShopList
+      :restaurant_category_ids="restaurant_category_ids"
+      :sortId="sortIds"
+    ></ShopList>
   </div>
 </template>
 
 <script>
 import Header from "@/components/header.vue";
 import ShopList from "@/components/common/shopList.vue";
+import Sort from "./components/sort.vue";
 import { foodActivity } from "@/api/takeout";
 import Category from "./components/category.vue";
 export default {
-  components: { Header, ShopList, Category },
-  created() { },
+  components: { Header, ShopList, Category, Sort },
+  created() {},
   data() {
     return {
       tag: "商超便利",
@@ -59,7 +83,7 @@ export default {
       option2: [],
       restaurant_category_ids: "",
       sortIds: "",
-      isShow: "",
+      isShow: false,
       iconList: [],
     };
   },
@@ -79,19 +103,19 @@ export default {
       this.sortIds = val;
       this.$refs.vdm2.toggle();
     },
-    listItem(footItem, index) {
-      this.iconList.push(index)
-      this.iconList = Array.from(new Set(this.iconList))
-      this.iconList.sort()
-      if (this.iconList.indexOf(index)) {
-        console.log(1)
+    listItem(id) {
+      if (this.iconList.indexOf(id) === -1) {
+        this.iconList.push(id);
+      } else {
+        this.iconList.splice(this.iconList.indexOf(id), 1);
       }
-
-
-    }
+    },
   },
   mounted() {
     this.shopstatus();
+    function opens() {
+      console.log(1);
+    }
   },
 };
 </script>
@@ -107,10 +131,10 @@ export default {
   padding: 10px 20px;
 
   .filter_header_style {
-    font-size: .32rem;
+    font-size: 0.32rem;
     color: #333;
-    line-height: .85rem;
-    height: .85rem;
+    line-height: 0.85rem;
+    height: 0.85rem;
     text-align: left;
     background-color: #fff;
   }

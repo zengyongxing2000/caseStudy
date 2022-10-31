@@ -7,6 +7,7 @@ function resolve(dir) {
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
+    // hmr: true,
     proxy: {
       //配置跨域
       "/api": {
@@ -23,7 +24,6 @@ module.exports = defineConfig({
   },
   chainWebpack(config) {
     config.plugins.delete("prefetch");
-
     // set svg-sprite-loader
     config.module.rule("svg").exclude.add(resolve("src/icons")).end();
     config.module
